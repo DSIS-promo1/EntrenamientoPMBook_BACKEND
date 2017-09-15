@@ -14,7 +14,9 @@ class FuenteController extends Controller
      */
     public function index()
     {
-        //
+        $fuentes = Fuente::all();
+
+        return response()->json($fuentes);
     }
 
     /**
@@ -24,7 +26,7 @@ class FuenteController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +37,11 @@ class FuenteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $fuente = Fuente::create([
+            'fue_des' => $request->fue_des,
+            'fue_abr' => $request->fue_abr
+        ]);
+        return response()->json($fuente);
     }
 
     /**
@@ -69,7 +75,10 @@ class FuenteController extends Controller
      */
     public function update(Request $request, Fuente $fuente)
     {
-        //
+        $fuente->fue_des = $request->fue_des;
+        $fuente->fue_abr = $request->fue_abr;
+        $fuente->save();
+        return response()->json($fuente);
     }
 
     /**
@@ -80,6 +89,6 @@ class FuenteController extends Controller
      */
     public function destroy(Fuente $fuente)
     {
-        //
+        $fuente->delete();
     }
 }

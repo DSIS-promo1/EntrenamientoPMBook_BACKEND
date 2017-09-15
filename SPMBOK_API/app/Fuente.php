@@ -8,13 +8,18 @@ class Fuente extends Model
 {
     protected $table = 'Fuentes';
 
+    public $timestamps = false;
+
+    protected $primaryKey = 'fue_ide';
+
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'fue_ide', 'fue_desc', 'fue_abr'
+        'fue_ide', 'fue_des', 'fue_abr'
     ];
 
 

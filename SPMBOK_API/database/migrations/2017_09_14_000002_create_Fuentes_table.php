@@ -24,7 +24,7 @@ class CreateFuentesTable extends Migration
         Schema::create($this->set_schema_table, function (Blueprint $table) {
         
             $table->increments('fue_ide');
-            $table->string('fue_desc', 200);
+            $table->string('fue_des', 200);
             $table->string('fue_abr', 6);
         });
     }
