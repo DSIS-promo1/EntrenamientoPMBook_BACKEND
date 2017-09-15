@@ -14,7 +14,8 @@ class CapituloController extends Controller
      */
     public function index()
     {
-        //
+        $capitulos = Capitulo::all();
+        return response()->json($capitulos);
     }
 
     /**
@@ -35,7 +36,12 @@ class CapituloController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $capitulo = Capitulo::create([
+           'cap_des' =>  $request->cap_des,
+           'cap_abr' =>  $request->cap_abr,
+            'cap_ncp' =>  $request->cap_ncp
+        ]);
+        return response()->json($capitulo);
     }
 
     /**
