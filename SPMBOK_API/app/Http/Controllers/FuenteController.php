@@ -52,7 +52,7 @@ class FuenteController extends Controller
      */
     public function show(Fuente $fuente)
     {
-        //
+        return response()->json($fuente);
     }
 
     /**
