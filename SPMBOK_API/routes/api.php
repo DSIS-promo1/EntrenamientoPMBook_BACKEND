@@ -58,3 +58,18 @@ Route::resource(
  );
 
 Route::resource('capitulos','CapituloController');
+
+
+Route::resource('capitulos.secciones','CapituloSeccionController');
+
+Route::resource(
+    'secciones',
+    'SeccionController',
+    ['only' =>
+        [
+            'index',
+            'show'
+
+        ]
+    ]
+);

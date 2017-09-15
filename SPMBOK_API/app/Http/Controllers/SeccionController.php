@@ -14,12 +14,26 @@ class SeccionController extends Controller
      */
     public function index()
     {
-        //
+        $secciones = Seccion::all();
+        return response()->json($secciones);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function show(Seccion $seccion)
+    {
+
+        return response()->json($seccion);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Seccion  $seccion
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -44,17 +58,7 @@ class SeccionController extends Controller
      * @param  \App\Seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function show(Seccion $seccion)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Seccion  $seccion
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Seccion $seccion)
     {
         //

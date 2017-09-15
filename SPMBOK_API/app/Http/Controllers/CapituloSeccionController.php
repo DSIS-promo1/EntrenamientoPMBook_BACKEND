@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\seccion;
 use App\Capitulo;
 use Illuminate\Http\Request;
 
-class CapituloController extends Controller
+class CapituloSeccionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $capitulos = Capitulo::all();
-        return response()->json($capitulos);
+        $capitulo   =Capitulo::find($id);
+        $seccion    =$capitulo->secciones;
+
+        return response()->json([$seccion]);
     }
 
     /**
@@ -23,7 +26,7 @@ class CapituloController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($capitulo,$seccion)
     {
         //
     }
@@ -34,34 +37,38 @@ class CapituloController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($capitulo,Request $request)
     {
-        $capitulo = Capitulo::create([
-           'cap_des' =>  $request->cap_des,
-           'cap_abr' =>  $request->cap_abr,
-            'cap_ncp' =>  $request->cap_ncp
+        //return "capitulo ".$capitulo;
+        Seccion::create([
+            'cap_id'  => $i,
+            'sec_des' => 'desc_'.$o,
+            'sec_abr' => 'abr_'.$o,
+            'sec_nsc' => '1.'.$o,
         ]);
-        return response()->json($capitulo);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Capitulo  $capitulo
+     * @param  \App\seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function show(Capitulo $capitulo)
+    public function show($capitulo , $seccion)
     {
-        return response()->json($capitulo);
+
+        //return "seccion ".$seccion;
+       $seccion    = Seccion::find($seccion);
+        return response()->json([$seccion]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Capitulo  $capitulo
+     * @param  \App\seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Capitulo $capitulo)
+    public function edit(seccion $seccion)
     {
         //
     }
@@ -70,26 +77,22 @@ class CapituloController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Capitulo  $capitulo
+     * @param  \App\seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Capitulo $capitulo)
+    public function update(Request $request, seccion $seccion)
     {
-        $capitulo-> cap_des = $request->cap_des;
-        $capitulo-> cap_abr =  $request->cap_abr;
-        $capitulo-> cap_ncp =  $request->cap_ncp;
-        $capitulo->save();
-        return response()->json($capitulo);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Capitulo  $capitulo
+     * @param  \App\seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Capitulo $capitulo)
+    public function destroy(seccion $seccion)
     {
-        $capitulo->delete();
+        //
     }
 }

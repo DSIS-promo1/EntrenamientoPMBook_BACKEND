@@ -8,11 +8,11 @@ class Seccion extends Model
 {
     protected $table = 'Secciones';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+
+    public $timestamps = false;
+
+    protected $primaryKey = 'sec_ide';
+
     protected $fillable = [
         'sec_ide', 'sec_des', 'sec_abr', 'sec_nsc', 'cap_id'
     ];
@@ -20,7 +20,7 @@ class Seccion extends Model
 
     public function capitulo()
     {
-        return $this->belongsTo('App\Capitulo' , 'cap_id');
+        return $this->belongsTo('App\Capitulo','cap_id');
     }
 
     public function preguntas()

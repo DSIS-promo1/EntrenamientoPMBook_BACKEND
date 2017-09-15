@@ -24,7 +24,7 @@ class Evaluacion extends Model
 
     public function usuario()
     {
-        return $this->belongsTo('App\User' , 'usu_ide');
+        return $this->belongsTo('App\User' , 1);
     }
 
 

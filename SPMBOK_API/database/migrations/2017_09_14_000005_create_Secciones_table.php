@@ -22,7 +22,7 @@ class CreateSeccionesTable extends Migration
     {
         if (Schema::hasTable($this->set_schema_table)) return;
         Schema::create($this->set_schema_table, function (Blueprint $table) {
-        
+
             $table->increments('sec_ide');
             $table->integer('cap_id')->unsigned();
             $table->string('sec_des', 200);
@@ -30,7 +30,6 @@ class CreateSeccionesTable extends Migration
             $table->string('sec_nsc', 8);
 
             $table->index(["cap_id"], 'fk_Seccion_Capitulo1_idx');
-
 
             $table->foreign('cap_id', 'fk_Seccion_Capitulo1_idx')
                 ->references('cap_id')->on('Capitulos');

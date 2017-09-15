@@ -8,18 +8,17 @@ class Capitulo extends Model
 {
     protected $table = 'Capitulos';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    public $timestamps = false;
+
+    protected $primaryKey = 'cap_id';
+
     protected $fillable = [
-        'cap_ide', 'cap_des', 'cap_abr', 'cap_ncp'
+        'cap_id', 'cap_des', 'cap_abr', 'cap_ncp'
     ];
 
 
     public function secciones()
     {
-        return $this->hasMany('App\Seccion');
+        return $this->hasMany('App\Seccion','cap_id');
     }
 }
