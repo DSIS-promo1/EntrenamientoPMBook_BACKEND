@@ -22,9 +22,9 @@ class CreateAlternativasTable extends Migration
     {
         if (Schema::hasTable($this->set_schema_table)) return;
         Schema::create($this->set_schema_table, function (Blueprint $table) {
-            $table->engine = 'InnoDB';
+        
             $table->increments('alt_ide');
-            $table->integer('pre_ide');
+            $table->integer('pre_ide')->unsigned();
             $table->text('alt_des');
             $table->string('alt_res', 1);
 
@@ -32,9 +32,7 @@ class CreateAlternativasTable extends Migration
 
 
             $table->foreign('pre_ide', 'fk_Alternativas_Preguntas1_idx')
-                ->references('pre_ide')->on('Preguntas')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+                ->references('pre_ide')->on('Preguntas');
         });
     }
 

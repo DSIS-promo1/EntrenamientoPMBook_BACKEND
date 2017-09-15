@@ -22,9 +22,9 @@ class CreateSeccionesTable extends Migration
     {
         if (Schema::hasTable($this->set_schema_table)) return;
         Schema::create($this->set_schema_table, function (Blueprint $table) {
-            $table->engine = 'InnoDB';
+        
             $table->increments('sec_ide');
-            $table->integer('cap_id');
+            $table->integer('cap_id')->unsigned();
             $table->string('sec_des', 200);
             $table->string('sec_abr', 15);
             $table->string('sec_nsc', 8);
@@ -33,9 +33,7 @@ class CreateSeccionesTable extends Migration
 
 
             $table->foreign('cap_id', 'fk_Seccion_Capitulo1_idx')
-                ->references('cap_id')->on('Capitulos')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+                ->references('cap_id')->on('Capitulos');
         });
     }
 

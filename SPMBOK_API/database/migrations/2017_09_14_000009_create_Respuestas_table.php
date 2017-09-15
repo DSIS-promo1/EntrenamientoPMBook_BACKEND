@@ -22,25 +22,20 @@ class CreateRespuestasTable extends Migration
     {
         if (Schema::hasTable($this->set_schema_table)) return;
         Schema::create($this->set_schema_table, function (Blueprint $table) {
-            $table->engine = 'InnoDB';
+            
             $table->increments('res_ide');
-            $table->integer('eva_ide');
-            $table->integer('alt_ide');
+            $table->integer('eva_ide')->unsigned();
+            $table->integer('alt_ide')->unsigned();
 
             $table->index(["alt_ide"], 'fk_Respuestas_Alternativas1_idx');
 
             $table->index(["eva_ide"], 'fk_Respuestas_Evaluaciones1_idx');
 
-
             $table->foreign('eva_ide', 'fk_Respuestas_Evaluaciones1_idx')
-                ->references('eva_ide')->on('Evaluaciones')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+                ->references('eva_ide')->on('Evaluaciones');
 
             $table->foreign('alt_ide', 'fk_Respuestas_Alternativas1_idx')
-                ->references('alt_ide')->on('Alternativas')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+                ->references('alt_ide')->on('Alternativas');
         });
     }
 

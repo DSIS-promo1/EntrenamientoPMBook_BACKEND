@@ -22,9 +22,9 @@ class CreateEvaluacionesTable extends Migration
     {
         if (Schema::hasTable($this->set_schema_table)) return;
         Schema::create($this->set_schema_table, function (Blueprint $table) {
-            $table->engine = 'InnoDB';
+        
             $table->increments('eva_ide');
-            $table->integer('usu_ide');
+            $table->integer('usu_ide')->unsigned();
             $table->integer('eva_sec');
             $table->date('eva_fec');
             $table->integer('eva_nta');
@@ -33,9 +33,7 @@ class CreateEvaluacionesTable extends Migration
 
 
             $table->foreign('usu_ide', 'fk_Evaluaciones_Usuarios1_idx')
-                ->references('use_ide')->on('Usuarios')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+                ->references('usu_ide')->on('users');
         });
     }
 

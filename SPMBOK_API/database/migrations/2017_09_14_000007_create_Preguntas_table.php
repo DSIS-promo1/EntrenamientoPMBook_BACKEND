@@ -22,11 +22,11 @@ class CreatePreguntasTable extends Migration
     {
         if (Schema::hasTable($this->set_schema_table)) return;
         Schema::create($this->set_schema_table, function (Blueprint $table) {
-            $table->engine = 'InnoDB';
+        
             $table->increments('pre_ide');
-            $table->integer('sec_ide');
-            $table->integer('fue_ide');
-            $table->integer('usu_ide');
+            $table->integer('sec_ide')->unsigned();
+            $table->integer('fue_ide')->unsigned();
+            $table->integer('usu_ide')->unsigned();
             $table->text('pre_des')->nullable();
             $table->text('pre_arg')->nullable();
             $table->string('pre_niv', 1)->nullable();
@@ -40,19 +40,13 @@ class CreatePreguntasTable extends Migration
 
 
             $table->foreign('sec_ide', 'fk_Preguntas_Secciones1_idx')
-                ->references('sec_ide')->on('Secciones')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+                ->references('sec_ide')->on('Secciones');
 
             $table->foreign('fue_ide', 'fk_Preguntas_Fuentes1_idx')
-                ->references('fue_ide')->on('Fuentes')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+                ->references('fue_ide')->on('Fuentes');
 
             $table->foreign('usu_ide', 'fk_Preguntas_Usuarios1_idx')
-                ->references('use_ide')->on('Usuarios')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+                ->references('usu_ide')->on('users');
         });
     }
 
