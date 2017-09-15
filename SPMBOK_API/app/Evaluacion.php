@@ -8,6 +8,10 @@ class Evaluacion extends Model
 {
     protected $table = 'Evaluaciones';
 
+    public $timestamps = false;
+
+    protected $primaryKey = 'eva_ide';
+
     /**
      * The attributes that are mass assignable.
      *

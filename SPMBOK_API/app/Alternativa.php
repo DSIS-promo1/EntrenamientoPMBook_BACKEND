@@ -8,6 +8,10 @@ class Alternativa extends Model
 {
     protected $table = 'Alternativas';
 
+    public $timestamps = false;
+
+    protected $primaryKey = 'alt_ide';
+
     /**
      * The attributes that are mass assignable.
      *

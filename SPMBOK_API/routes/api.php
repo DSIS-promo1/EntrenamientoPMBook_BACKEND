@@ -18,6 +18,43 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::resource('fuentes','FuenteController');
+Route::resource(
+	'fuentes',
+	'FuenteController',
+	['only' => 
+		[
+    		'index',
+    		'show',
+    		'store',
+    		'update',
+    		'destroy'
+    	]
+    ]
+);
+
+Route::resource(
+	'evaluaciones',
+	'EvaluacionController',
+	['only' => 
+		[
+    		'index',
+    		'show',
+    		'store',
+    		'update',
+    		'destroy'
+    	]
+    ]
+);
+
+Route::resource(
+	'alternativas',
+	'AlternativaController', 
+	['only' => 
+		[
+    		'index',
+    		'show'
+    	]
+    ]
+ );
 
 Route::resource('capitulos','CapituloController');

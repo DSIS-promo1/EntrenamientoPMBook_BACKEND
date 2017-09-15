@@ -14,7 +14,8 @@ class AlternativaController extends Controller
      */
     public function index()
     {
-        //
+        $alternativas = Alternativa::all();
+        return response()->json($alternativas);
     }
 
     /**
@@ -35,7 +36,7 @@ class AlternativaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -46,7 +47,8 @@ class AlternativaController extends Controller
      */
     public function show(Alternativa $alternativa)
     {
-        //
+    
+        return response()->json($alternativa);
     }
 
     /**
