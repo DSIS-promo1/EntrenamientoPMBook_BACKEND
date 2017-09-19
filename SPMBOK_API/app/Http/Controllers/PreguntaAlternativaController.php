@@ -38,9 +38,14 @@ class PreguntaAlternativaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id, Request $request)
     {
-        //
+        $alternativa = new Alternativa();
+        $alternativa->alt_des = $request->alt_des;
+        $alternativa->alt_res = $request->alt_res;
+        $alternativa->pre_ide = $id;
+        $alternativa->save();
+        return response()->json($alternativa);
     }
 
     /**
@@ -74,9 +79,14 @@ class PreguntaAlternativaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id ,$idAlt)
     {
-        //
+        $alternativa = Alternativa::findOrFail($idAlt);
+        $alternativa->alt_des = $request->alt_des;
+        $alternativa->alt_res = $request->alt_res;
+        $alternativa->pre_ide = $id;
+        $alternativa->save();
+        return response()->json($alternativa);
     }
 
     /**
@@ -85,8 +95,9 @@ class PreguntaAlternativaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id , $idAlt)
     {
-        //
+         $alternativa = Alternativa::findOrFail($idAlt);
+         $alternativa->delete();
     }
 }

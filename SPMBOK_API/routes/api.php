@@ -92,7 +92,10 @@ Route::resource(
     ['only' => 
         [
             'index',
-            'show'
+            'show',
+            'store',
+            'update',
+            'destroy'
         ]
     ]
 );
@@ -103,7 +106,8 @@ Route::resource(
     ['only' => 
         [
             'index',
-            'show'
+            'show',
+
         ]
     ]
 );
