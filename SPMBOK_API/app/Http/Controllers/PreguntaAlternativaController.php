@@ -99,6 +99,6 @@ class PreguntaAlternativaController extends Controller
     {
          $alternativa = Alternativa::findOrFail($idAlt);
          $alternativa->delete();
-         eturn response()->json(['mensaje' => 'Alternativa eliminado'],200);
+         return response()->json(['mensaje' => 'Alternativa eliminado'],200);
     }
 }
