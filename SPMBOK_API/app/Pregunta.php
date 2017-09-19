@@ -8,6 +8,10 @@ class Pregunta extends Model
 {
     protected $table = 'Preguntas';
 
+     public $timestamps = false;
+
+    protected $primaryKey = 'pre_ide';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -37,7 +41,7 @@ class Pregunta extends Model
 
     public function alternativas()
     {
-        return $this->hasMany('App\Alternativa' , 'alt_ide');
+        return $this->hasMany('App\Alternativa' , 'pre_ide');
     }
 
 }

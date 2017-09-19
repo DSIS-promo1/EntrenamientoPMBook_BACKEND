@@ -96,3 +96,25 @@ Route::resource(
         ]
     ]
 );
+
+Route::resource(
+    'preguntas',
+    'PreguntaController', 
+    ['only' => 
+        [
+            'index',
+            'show'
+        ]
+    ]
+);
+
+Route::resource(
+    'preguntas.alternativas',
+    'PreguntaAlternativaController', 
+    ['only' => 
+        [
+            'index',
+            'show'
+        ]
+    ]
+);

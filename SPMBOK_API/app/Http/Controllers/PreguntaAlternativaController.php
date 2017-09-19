@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Pregunta;
+use App\Alternativa;
 use Illuminate\Http\Request;
 
-class PreguntaController extends Controller
+class PreguntaAlternativaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $preguntas = Pregunta::all();
-        return response()->json($preguntas);
+        $pregunta = Pregunta::findOrFail($id);
+        return response()->json($pregunta->alternativas);
     }
 
     /**
@@ -23,9 +25,11 @@ class PreguntaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+
+
+        
     }
 
     /**
@@ -36,27 +40,29 @@ class PreguntaController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Pregunta  $pregunta
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Pregunta $pregunta)
+    public function show($id , $idAlt)
     {
-        return response()->json($pregunta);
+        $alternativa = Alternativa::where('pre_ide' , $id)
+        ->where('alt_ide', $idAlt)->firstOrFail();
+        return response()->json($alternativa);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Pregunta  $pregunta
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pregunta $pregunta)
+    public function edit($id)
     {
         //
     }
@@ -65,10 +71,10 @@ class PreguntaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Pregunta  $pregunta
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pregunta $pregunta)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +82,10 @@ class PreguntaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Pregunta  $pregunta
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pregunta $pregunta)
+    public function destroy($id)
     {
         //
     }
