@@ -116,3 +116,18 @@ Route::resource(
         ]
     ]
 );
+
+
+Route::resource(
+    'usuarios',
+    'UsuarioController', 
+    ['only' => 
+        [
+            'index',
+            'show',
+            'store',
+            'update',
+            'destroy'
+        ]
+    ]
+);
