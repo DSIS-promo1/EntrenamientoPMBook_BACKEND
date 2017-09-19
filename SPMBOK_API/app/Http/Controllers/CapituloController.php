@@ -15,18 +15,9 @@ class CapituloController extends Controller
     public function index()
     {
         $capitulos = Capitulo::all();
-        return response()->json($capitulos);
+        return response()->json(['datos' => $capitulos],200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -36,12 +27,13 @@ class CapituloController extends Controller
      */
     public function store(Request $request)
     {
-        $capitulo = Capitulo::create([
-           'cap_des' =>  $request->cap_des,
-           'cap_abr' =>  $request->cap_abr,
-            'cap_ncp' =>  $request->cap_ncp
-        ]);
-        return response()->json($capitulo);
+        if(!$request->input('cap_ncp') || ! $request->input('cap_des'))
+        {
+            return response()->json(['mensaje' => 'No se pudieron procesar los valores', 'codigo' => 422],422);
+        }
+        Capitulo::create($request->all());
+        return response()->json(['mensaje' => 'Capitulo insertado'],201);
+
     }
 
     /**
@@ -50,9 +42,15 @@ class CapituloController extends Controller
      * @param  \App\Capitulo  $capitulo
      * @return \Illuminate\Http\Response
      */
-    public function show(Capitulo $capitulo)
+    public function show($id)
     {
-        return response()->json($capitulo);
+        $capitulo = Capitulo::find($id);
+
+        if(!$capitulo)
+        {
+            return response()->json(['mensaje' => 'No se encuentra este capitulo', 'codigo' => 404],404);
+        }
+        return response()->json(['datos' => $capitulo],200);
     }
 
     /**
@@ -61,25 +59,22 @@ class CapituloController extends Controller
      * @param  \App\Capitulo  $capitulo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Capitulo $capitulo)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Capitulo  $capitulo
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Capitulo $capitulo)
+    public function update(Request $request, $id)
     {
-        $capitulo-> cap_des = $request->cap_des;
-        $capitulo-> cap_abr =  $request->cap_abr;
-        $capitulo-> cap_ncp =  $request->cap_ncp;
-        $capitulo->save();
-        return response()->json($capitulo);
+        $capitulo = Capitulo::find($id);
+        if(!$capitulo)
+        {
+            return response()->json(['mensaje' => 'No se encuentra este capitulo', 'codigo' => 404],404);
+        }
+        else {
+
+            $capitulo->cap_des = $request->cap_des;
+            $capitulo->cap_abr = $request->cap_abr;
+            $capitulo->cap_ncp = $request->cap_ncp;
+            $capitulo->save();
+            return response()->json(['mensaje' => 'Capitulo editado'], 200);
+        }
     }
 
     /**
@@ -88,8 +83,17 @@ class CapituloController extends Controller
      * @param  \App\Capitulo  $capitulo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Capitulo $capitulo)
+    public function destroy($id)
     {
-        $capitulo->delete();
+        $capitulo = Capitulo::find($id);
+        if(!$capitulo)
+        {
+            return response()->json(['mensaje' => 'No se encuentra este capitulo', 'codigo' => 404],404);
+        }
+        else{
+            $capitulo->delete();
+            return response()->json(['mensaje' => 'Capitulo eliminado'],200);
+        }
+
     }
 }

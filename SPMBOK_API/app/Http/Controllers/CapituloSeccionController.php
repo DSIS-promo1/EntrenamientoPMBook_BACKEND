@@ -15,10 +15,15 @@ class CapituloSeccionController extends Controller
      */
     public function index($id)
     {
-        $capitulo   =Capitulo::find($id);
-        $seccion    =$capitulo->secciones;
+        $capitulo   = Capitulo::find($id);
 
-        return response()->json([$seccion]);
+        if(!$capitulo)
+        {
+            return response()->json(['mensaje' => 'No existe el Capitulo asociado', 'codigo' => 404],404);
+        }
+        return response()->json(['mensaje' => $capitulo->secciones, 'codigo' => 200],200);
+
+
     }
 
     /**
@@ -26,26 +31,27 @@ class CapituloSeccionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($capitulo,$seccion)
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store($capitulo,Request $request)
+    public function store($id,Request $request)
     {
-        //return "capitulo ".$capitulo;
+        $capitulo = Capitulo::find($id);
+
+        if(!$capitulo)
+        {
+            return response()->json(['mensaje' => 'No existe el Capitulo asociado', 'codigo' => 404],404);
+        }
+
+        //$capitulo->evaluacion()->create($request->all());
         Seccion::create([
-            'cap_id'  => $i,
-            'sec_des' => 'desc_'.$o,
-            'sec_abr' => 'abr_'.$o,
-            'sec_nsc' => '1.'.$o,
+            'cap_id'  => $id,
+            'sec_des' => $request->sec_des,
+            'sec_abr' => $request->sec_abr,
+            'sec_nsc' => $request->sec_nsc
         ]);
+
+        return response()->json(['mensaje' => 'Sección insertada'],201);
+
+
     }
 
     /**
@@ -54,12 +60,23 @@ class CapituloSeccionController extends Controller
      * @param  \App\seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function show($capitulo , $seccion)
+    public function show($idCapitulo , $idSeccion)
     {
 
-        //return "seccion ".$seccion;
-       $seccion    = Seccion::find($seccion);
-        return response()->json([$seccion]);
+        $capitulo = Capitulo::find($idCapitulo);
+
+        if(!$capitulo)
+        {
+            return response()->json(['mensaje' => 'No existe el Capitulo asociado', 'codigo' => 404],404);
+        }
+
+        $seccion = Seccion::find($idSeccion);
+        if(!$seccion)
+        {
+            return response()->json(['mensaje' => 'No existe la sección asociada', 'codigo' => 404],404);
+        }
+
+        return response()->json(['mensaje' => $seccion, 'codigo' => 200],200);
     }
 
     /**
@@ -68,21 +85,31 @@ class CapituloSeccionController extends Controller
      * @param  \App\seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function edit(seccion $seccion)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\seccion  $seccion
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, seccion $seccion)
+    public function update(Request $request,$idCapitulo,$idSeccion)
     {
-        //
+        $capitulo = Capitulo::find($idCapitulo);
+
+        if(!$capitulo)
+        {
+            return response()->json(['mensaje' => 'No existe el Capitulo asociado', 'codigo' => 404],404);
+        }
+
+        $seccion = Seccion::find($idSeccion);
+        if(!$seccion)
+        {
+            return response()->json(['mensaje' => 'No existe la sección asociada', 'codigo' => 404],404);
+        }
+
+        $seccion->sec_des = $request->sec_des;
+        $seccion->sec_abr = $request->sec_abr;
+        $seccion->sec_nsc = $request->sec_nsc;
+
+        $seccion->save();
+
+        return response()->json(['mensaje' => 'Sección actualizada'],201);
+
+
     }
 
     /**
@@ -91,8 +118,21 @@ class CapituloSeccionController extends Controller
      * @param  \App\seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(seccion $seccion)
+    public function destroy($idCapitulo,$idSeccion)
     {
-        //
+        $capitulo = Capitulo::find($idCapitulo);
+
+        if(!$capitulo)
+        {
+            return response()->json(['mensaje' => 'No existe el Capitulo asociado', 'codigo' => 404],404);
+        }
+
+        $seccion = Seccion::find($idSeccion);
+        if(!$seccion)
+        {
+            return response()->json(['mensaje' => 'No existe la sección asociada', 'codigo' => 404],404);
+        }
+        $seccion->delete();
+        return response()->json(['mensaje' => 'Sección eliminada', 'codigo' => 404],404);
     }
 }
