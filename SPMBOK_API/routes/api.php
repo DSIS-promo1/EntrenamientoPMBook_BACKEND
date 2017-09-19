@@ -131,3 +131,17 @@ Route::resource(
         ]
     ]
 );
+
+Route::resource(
+    'respuestas',
+    'RespuestaController',
+    ['only' => 
+        [
+            'index',
+            'show',
+            'store',
+            'update',
+            'destroy'
+        ]
+    ]
+);

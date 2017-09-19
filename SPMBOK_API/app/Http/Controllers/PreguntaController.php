@@ -90,7 +90,7 @@ class PreguntaController extends Controller
      * @param  \App\Pregunta  $pregunta
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pregunta $pregunta)
+    public function update(Request $request, $id)
     {
         $pregunta = Pregunta::find($id);
         if(!$pregunta)
@@ -116,7 +116,7 @@ class PreguntaController extends Controller
      * @param  \App\Pregunta  $pregunta
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pregunta $pregunta)
+    public function destroy($id)
     {
         $pregunta = Pregunta::find($id);
         if(!$pregunta)
