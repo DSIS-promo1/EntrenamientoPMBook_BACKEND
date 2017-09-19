@@ -16,7 +16,7 @@ class FuenteController extends Controller
     {
         $fuentes = Fuente::all();
 
-        return response()->json($fuentes);
+        return response()->json([ 'datos' => $fuentes] , 200);
     }
 
     /**
@@ -41,7 +41,7 @@ class FuenteController extends Controller
             'fue_des' => $request->fue_des,
             'fue_abr' => $request->fue_abr
         ]);
-        return response()->json($fuente);
+        return response()->json(['mensaje' => 'Fuente creada'], 201);
     }
 
     /**
@@ -52,7 +52,7 @@ class FuenteController extends Controller
      */
     public function show(Fuente $fuente)
     {
-        return response()->json($fuente);
+        return response()->json(['datos' => $fuente], 200);
     }
 
     /**
@@ -78,7 +78,7 @@ class FuenteController extends Controller
         $fuente->fue_des = $request->fue_des;
         $fuente->fue_abr = $request->fue_abr;
         $fuente->save();
-        return response()->json($fuente);
+        return response()->json(['mensaje' => 'Fuente actualizada'], 200);
     }
 
     /**
@@ -90,5 +90,6 @@ class FuenteController extends Controller
     public function destroy(Fuente $fuente)
     {
         $fuente->delete();
+        return response()->json(['mensaje' => 'Fuente eliminada'], 201);
     }
 }

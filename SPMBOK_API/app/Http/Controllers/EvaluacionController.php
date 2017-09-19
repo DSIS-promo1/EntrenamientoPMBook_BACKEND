@@ -17,7 +17,7 @@ class EvaluacionController extends Controller
     {
         $evaluaciones = Evaluacion::all();
 
-        return response()->json($evaluaciones);
+        return response()->json(['datos' => $evaluaciones], 200);
     }
 
     /**
@@ -45,7 +45,7 @@ class EvaluacionController extends Controller
             'usu_ide' => 1
         ]);
 
-        return response()->json($evaluacion);
+        return response()->json(['mensaje' => 'Evaluacion creada'], 201);
 
     }
 
@@ -57,7 +57,7 @@ class EvaluacionController extends Controller
      */
     public function show($id)
     {
-        return response()->json(Evaluacion::findOrFail($id));
+        return response()->json([ 'datos' => Evaluacion::findOrFail($id)] , 200);
     }
 
     /**
@@ -87,7 +87,7 @@ class EvaluacionController extends Controller
         $evaluacion->eva_fec = Carbon::now()->toDateString();
         $evaluacion->usu_ide = 1;
         $evaluacion->save();
-        return response()->json($evaluacion);
+        return response()->json(['mensaje' => 'Evaluacion actualizada'], 201);
     }
 
     /**
@@ -100,5 +100,6 @@ class EvaluacionController extends Controller
     {
         $evaluacion = Evaluacion::findOrFail($id);
         $evaluacion->delete();
+        return response()->json(['mensaje' => 'Evaluacion eliminada'], 201);
     }
 }

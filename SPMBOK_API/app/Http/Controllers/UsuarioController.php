@@ -15,7 +15,13 @@ class UsuarioController extends Controller
     public function index()
     {
         $usuarios = User::all();
-        return response()->json($usuarios);
+
+        if(!$usuarios)
+        {
+            return response()->json(['mensaje' => 'No se han registrado usuarios', 'codigo' => 404],404);
+        }
+
+        return response()->json(['datos' =>$usuarios] , 200);
     }
 
     /**
@@ -49,7 +55,9 @@ class UsuarioController extends Controller
         $usuario->usu_fto = $request->usu_fto;
         $usuario->usu_est = $request->usu_est;
         $usuario->save();
-        return response()->json($usuario);
+
+
+        return response()->json(['mensaje' => 'Usuario insertado'],201);
     }
 
     /**
@@ -60,7 +68,7 @@ class UsuarioController extends Controller
      */
     public function show(User $usuario)
     {
-         return response()->json($usuario);
+         return response()->json(['datos' => $usuario], 200);
     }
 
     /**
@@ -95,7 +103,7 @@ class UsuarioController extends Controller
         $usuario->usu_fto = $request->usu_fto;
         $usuario->usu_est = $request->usu_est;
         $usuario->save();
-        return response()->json($usuario);
+        return response()->json(['datos' => $usuario]. 200);
     }
 
     /**
@@ -107,5 +115,6 @@ class UsuarioController extends Controller
     public function destroy(User $usuario)
     {
         $usuario->delele();
+        return response()->json(['mensaje' => 'Usuario eliminado'],200);
     }
 }

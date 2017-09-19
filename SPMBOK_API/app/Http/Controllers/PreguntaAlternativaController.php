@@ -17,7 +17,7 @@ class PreguntaAlternativaController extends Controller
     public function index($id)
     {
         $pregunta = Pregunta::findOrFail($id);
-        return response()->json($pregunta->alternativas);
+        return response()->json(['datos' => $pregunta->alternativas], 200);
     }
 
     /**
@@ -45,7 +45,7 @@ class PreguntaAlternativaController extends Controller
         $alternativa->alt_res = $request->alt_res;
         $alternativa->pre_ide = $id;
         $alternativa->save();
-        return response()->json($alternativa);
+        return response()->json(['mensaje' => 'Alternativa creada'], 201);
     }
 
     /**
@@ -58,7 +58,7 @@ class PreguntaAlternativaController extends Controller
     {
         $alternativa = Alternativa::where('pre_ide' , $id)
         ->where('alt_ide', $idAlt)->firstOrFail();
-        return response()->json($alternativa);
+        return response()->json(['datos' => $alternativa], 200);
     }
 
     /**
@@ -86,7 +86,7 @@ class PreguntaAlternativaController extends Controller
         $alternativa->alt_res = $request->alt_res;
         $alternativa->pre_ide = $id;
         $alternativa->save();
-        return response()->json($alternativa);
+        return response()->json(['mensaje' => 'Alternativa actualizada'] , 200);
     }
 
     /**
@@ -99,5 +99,6 @@ class PreguntaAlternativaController extends Controller
     {
          $alternativa = Alternativa::findOrFail($idAlt);
          $alternativa->delete();
+         eturn response()->json(['mensaje' => 'Alternativa eliminado'],200);
     }
 }
