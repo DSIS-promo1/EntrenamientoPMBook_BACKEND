@@ -57,6 +57,22 @@ Route::resource(
     ]
  );
 
+Route::resource(
+    'preguntas',
+    'PreguntaController',
+    ['only' => 
+        [
+            'index',
+            'show',
+            'store',
+            'update',
+            'destroy'
+        ]
+    ]
+);
+
+
+
 Route::resource('capitulos','CapituloController');
 
 
