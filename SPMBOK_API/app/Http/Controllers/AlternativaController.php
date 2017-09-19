@@ -15,7 +15,7 @@ class AlternativaController extends Controller
     public function index()
     {
         $alternativas = Alternativa::all();
-        return response()->json($alternativas);
+        return response()->json(['datos' => $alternativas],200);
     }
 
     /**
@@ -48,7 +48,7 @@ class AlternativaController extends Controller
     public function show(Alternativa $alternativa)
     {
     
-        return response()->json($alternativa);
+        return response()->json([ 'datos' => $alternativa] , 200);
     }
 
     /**
