@@ -57,6 +57,7 @@ Route::resource(
     ]
  );
 
+
 Route::resource('capitulos','CapituloController');
 
 
@@ -77,14 +78,18 @@ Route::resource(
 
 Route::resource(
     'preguntas',
-    'PreguntaController', 
+    'PreguntaController',
     ['only' => 
         [
             'index',
-            'show'
+            'show',
+            'store',
+            'update',
+            'destroy'
         ]
     ]
 );
+
 
 Route::resource(
     'preguntas.alternativas',
@@ -100,17 +105,6 @@ Route::resource(
     ]
 );
 
-Route::resource(
-    'preguntas',
-    'PreguntaController', 
-    ['only' => 
-        [
-            'index',
-            'show',
-
-        ]
-    ]
-);
 
 Route::resource(
     'preguntas.alternativas',

@@ -14,8 +14,13 @@ class PreguntaController extends Controller
      */
     public function index()
     {
-        $preguntas = Pregunta::all();
-        return response()->json($preguntas);
+        $pregunta = Pregunta::all();
+
+        if(!$pregunta)
+        {
+            return response()->json(['mensaje' => 'No existen preguntas', 'codigo' => 404],404);
+        }
+        return response()->json(['datos' => $pregunta],200);
     }
 
     /**
@@ -36,7 +41,18 @@ class PreguntaController extends Controller
      */
     public function store(Request $request)
     {
-        
+        Pregunta::create([
+            'sec_ide' => $request->sec_ide,
+            'pre_des' => $request->pre_des,
+            'pre_arg' => $request->pre_arg,
+            'fue_ide' => $request->fue_ide,
+            'usu_ide' => $request->usu_ide,
+            'pre_niv' => $request->pre_niv,
+            'pre_est' => $request->pre_est
+        ]);
+
+        return response()->json(['mensaje' => 'Pregunta insertada'],201);
+
     }
 
     /**
@@ -45,9 +61,15 @@ class PreguntaController extends Controller
      * @param  \App\Pregunta  $pregunta
      * @return \Illuminate\Http\Response
      */
-    public function show(Pregunta $pregunta)
+    public function show($id)
     {
-        return response()->json($pregunta);
+        $pregunta = Pregunta::find($id);
+
+        if(!$pregunta)
+        {
+            return response()->json(['mensaje' => 'No se encuentra esta Pregunta', 'codigo' => 404],404);
+        }
+        return response()->json(['datos' => $pregunta],200);
     }
 
     /**
@@ -70,7 +92,22 @@ class PreguntaController extends Controller
      */
     public function update(Request $request, Pregunta $pregunta)
     {
-        //
+        $pregunta = Pregunta::find($id);
+        if(!$pregunta)
+        {
+            return response()->json(['mensaje' => 'No se encuentra esta pregunta', 'codigo' => 404],404);
+        }
+        else {
+            $pregunta->sec_ide = $request->sec_ide;
+            $pregunta->pre_des = $request->pre_des;
+            $pregunta->pre_arg = $request->pre_arg;
+            $pregunta->fue_ide = $request->fue_ide;
+            $pregunta->usu_ide = $request->usu_ide;
+            $pregunta->pre_niv = $request->pre_niv;
+            $pregunta->pre_est = $request->pre_est;
+            $pregunta->save();
+            return response()->json(['mensaje' => 'Pregunta editada'], 200);
+        }
     }
 
     /**
@@ -81,6 +118,14 @@ class PreguntaController extends Controller
      */
     public function destroy(Pregunta $pregunta)
     {
-        //
+        $pregunta = Pregunta::find($id);
+        if(!$pregunta)
+        {
+            return response()->json(['mensaje' => 'No se encuentra esta pregunta', 'codigo' => 404],404);
+        }
+        else{
+            $pregunta->delete();
+            return response()->json(['mensaje' => 'Pregunta eliminada'],200);
+        }
     }
 }
