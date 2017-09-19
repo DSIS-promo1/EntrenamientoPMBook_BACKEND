@@ -15,6 +15,10 @@ class CapituloController extends Controller
     public function index()
     {
         $capitulos = Capitulo::all();
+        if(!$capitulos)
+        {
+            return response()->json(['mensaje' => 'No existen capitulos', 'codigo' => 404],404);
+        }
         return response()->json(['datos' => $capitulos],200);
     }
 
