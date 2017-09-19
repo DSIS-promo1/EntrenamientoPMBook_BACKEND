@@ -55,12 +55,25 @@ Route::resource(
     		'show'
     	]
     ]
-<<<<<<< Updated upstream
  );
 
 Route::resource('capitulos','CapituloController');
-=======
+
+
+Route::resource('capitulos.secciones','CapituloSeccionController'); 
+ 
+Route::resource( 
+    'secciones', 
+    'SeccionController', 
+    ['only' => 
+        [ 
+            'index', 
+            'show' 
+ 
+        ] 
+    ] 
 );
+
 
 Route::resource(
     'preguntas',
@@ -83,4 +96,3 @@ Route::resource(
         ]
     ]
 );
->>>>>>> Stashed changes
