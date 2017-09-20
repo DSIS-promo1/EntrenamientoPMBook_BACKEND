@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use App\Evaluacion;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
+use JWTAuth;
 class EvaluacionController extends Controller
 {
+
+    protected $user;
+
+    public function __construct(){
+        $this->user = JWTAuth::parseToken()->authenticate();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +49,7 @@ class EvaluacionController extends Controller
             'eva_sec' => $request->eva_sec,
             'eva_fec' => Carbon::now()->toDateString(),
             'eva_nta' => $request->eva_nta,
-            'usu_ide' => 1
+            'usu_ide' => $this->user->id
         ]);
 
         return response()->json(['mensaje' => 'Evaluacion creada'], 201);

@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Pregunta;
 use Illuminate\Http\Request;
-
+use JWTAuth;
 class PreguntaController extends Controller
 {
+
+    protected $user;
+
+    public function __construct(){
+        $this->user = JWTAuth::parseToken()->authenticate();
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +54,7 @@ class PreguntaController extends Controller
             'pre_des' => $request->pre_des,
             'pre_arg' => $request->pre_arg,
             'fue_ide' => $request->fue_ide,
-            'usu_ide' => $request->usu_ide,
+            'usu_ide' => $this->user->id,
             'pre_niv' => $request->pre_niv,
             'pre_est' => $request->pre_est
         ]);
@@ -102,7 +110,7 @@ class PreguntaController extends Controller
             $pregunta->pre_des = $request->pre_des;
             $pregunta->pre_arg = $request->pre_arg;
             $pregunta->fue_ide = $request->fue_ide;
-            $pregunta->usu_ide = $request->usu_ide;
+            $pregunta->usu_ide = $this->user->id;
             $pregunta->pre_niv = $request->pre_niv;
             $pregunta->pre_est = $request->pre_est;
             $pregunta->save();

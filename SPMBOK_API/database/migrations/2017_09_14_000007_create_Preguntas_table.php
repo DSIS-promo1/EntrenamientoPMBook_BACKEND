@@ -46,7 +46,7 @@ class CreatePreguntasTable extends Migration
                 ->references('fue_ide')->on('Fuentes');
 
             $table->foreign('usu_ide', 'fk_Preguntas_Usuarios1_idx')
-                ->references('usu_ide')->on('users');
+                ->references('id')->on('users');
         });
     }
 

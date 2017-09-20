@@ -33,7 +33,7 @@ class CreateEvaluacionesTable extends Migration
 
 
             $table->foreign('usu_ide', 'fk_Evaluaciones_Usuarios1_idx')
-                ->references('usu_ide')->on('users');
+                ->references('id')->on('users');
         });
     }
 

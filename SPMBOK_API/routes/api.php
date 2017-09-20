@@ -13,121 +13,128 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['jwt.auth']], function() {
+
+    Route::get('logout', 'AuthController@logout');
+
+
+    Route::resource(
+    	'fuentes',
+    	'FuenteController',
+    	['only' => 
+    		[
+        		'index',
+        		'show',
+        		'store',
+        		'update',
+        		'destroy'
+        	]
+        ]
+    );
+
+    Route::resource(
+    	'evaluaciones',
+    	'EvaluacionController',
+    	['only' => 
+    		[
+        		'index',
+        		'show',
+        		'store',
+        		'update',
+        		'destroy'
+        	]
+        ]
+    );
+
+    Route::resource(
+    	'alternativas',
+    	'AlternativaController', 
+    	['only' => 
+    		[
+        		'index',
+        		'show'
+        	]
+        ]
+     );
+
+
+    Route::resource('capitulos','CapituloController');
+
+
+    Route::resource('capitulos.secciones','CapituloSeccionController'); 
+     
+    Route::resource( 
+        'secciones', 
+        'SeccionController', 
+        ['only' => 
+            [ 
+                'index', 
+                'show' 
+     
+            ] 
+        ] 
+    );
+
+
+    Route::resource(
+        'preguntas',
+        'PreguntaController',
+        ['only' => 
+            [
+                'index',
+                'show',
+                'store',
+                'update',
+                'destroy'
+            ]
+        ]
+    );
+
+
+    Route::resource(
+        'preguntas.alternativas',
+        'PreguntaAlternativaController', 
+        ['only' => 
+            [
+                'index',
+                'show',
+                'store',
+                'update',
+                'destroy'
+            ]
+        ]
+    );
+
+
+    Route::resource(
+        'preguntas.alternativas',
+        'PreguntaAlternativaController', 
+        ['only' => 
+            [
+                'index',
+                'show'
+            ]
+        ]
+    );
+
+
+    Route::resource(
+        'usuarios',
+        'UsuarioController', 
+        ['only' => 
+            [
+                'index',
+                'show',
+                'store',
+                'update',
+                'destroy'
+            ]
+        ]
+    );
+
 });
 
 
-Route::resource(
-	'fuentes',
-	'FuenteController',
-	['only' => 
-		[
-    		'index',
-    		'show',
-    		'store',
-    		'update',
-    		'destroy'
-    	]
-    ]
-);
-
-Route::resource(
-	'evaluaciones',
-	'EvaluacionController',
-	['only' => 
-		[
-    		'index',
-    		'show',
-    		'store',
-    		'update',
-    		'destroy'
-    	]
-    ]
-);
-
-Route::resource(
-	'alternativas',
-	'AlternativaController', 
-	['only' => 
-		[
-    		'index',
-    		'show'
-    	]
-    ]
- );
-
-
-Route::resource('capitulos','CapituloController');
-
-
-Route::resource('capitulos.secciones','CapituloSeccionController'); 
- 
-Route::resource( 
-    'secciones', 
-    'SeccionController', 
-    ['only' => 
-        [ 
-            'index', 
-            'show' 
- 
-        ] 
-    ] 
-);
-
-
-Route::resource(
-    'preguntas',
-    'PreguntaController',
-    ['only' => 
-        [
-            'index',
-            'show',
-            'store',
-            'update',
-            'destroy'
-        ]
-    ]
-);
-
-
-Route::resource(
-    'preguntas.alternativas',
-    'PreguntaAlternativaController', 
-    ['only' => 
-        [
-            'index',
-            'show',
-            'store',
-            'update',
-            'destroy'
-        ]
-    ]
-);
-
-
-Route::resource(
-    'preguntas.alternativas',
-    'PreguntaAlternativaController', 
-    ['only' => 
-        [
-            'index',
-            'show'
-        ]
-    ]
-);
-
-
-Route::resource(
-    'usuarios',
-    'UsuarioController', 
-    ['only' => 
-        [
-            'index',
-            'show',
-            'store',
-            'update',
-            'destroy'
-        ]
-    ]
-);
+Route::post('register', 'AuthController@register');
+Route::post('login', 'AuthController@authenticate');
+Route::post('recover', 'AuthController@recover');
