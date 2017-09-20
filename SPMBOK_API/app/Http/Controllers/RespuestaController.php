@@ -14,7 +14,12 @@ class RespuestaController extends Controller
      */
     public function index()
     {
-        //
+        $respuestas = Respuesta::all();
+        if(!$respuestas)
+        {
+            return response()->json(['mensaje' => 'No existen respuestas', 'codigo' => 404],404);
+        }
+        return response()->json(['datos' => $respuestas],200);
     }
 
     /**
@@ -35,7 +40,12 @@ class RespuestaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $respuesta = Respuesta::create([
+            'eva_ide' => $request->eva_ide,
+            'alt_ide' => $request->alt_ide
+        ]);
+
+        return response()->json($respuesta);    
     }
 
     /**
@@ -46,7 +56,7 @@ class RespuestaController extends Controller
      */
     public function show(Respuesta $respuesta)
     {
-        //
+        return response()->json(Respuesta::findOrFail($id));
     }
 
     /**
@@ -67,9 +77,13 @@ class RespuestaController extends Controller
      * @param  \App\Respuesta  $respuesta
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Respuesta $respuesta)
+    public function update(Request $request, $id)
     {
-        //
+        $respuesta = Respuesta::findOrFail($id);
+        $respuesta->eva_ide = $request->eva_ide;
+        $respuesta->alt_ide = $request->alt_ide;
+        $respuesta->save();
+        return response()->json($respuesta);
     }
 
     /**
@@ -78,8 +92,9 @@ class RespuestaController extends Controller
      * @param  \App\Respuesta  $respuesta
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Respuesta $respuesta)
+    public function destroy($id)
     {
-        //
+        $respuesta = Respuesta::findOrFail($id);
+        $respuesta->delete();
     }
 }

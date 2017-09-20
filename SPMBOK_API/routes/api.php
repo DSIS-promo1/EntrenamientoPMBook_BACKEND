@@ -132,6 +132,19 @@ Route::group(['middleware' => ['jwt.auth']], function() {
         ]
     );
 
+Route::resource(
+    'respuestas',
+    'RespuestaController',
+    ['only' => 
+        [
+            'index',
+            'show',
+            'store',
+            'update',
+            'destroy'
+        ]
+    ]
+);
 });
 
 
