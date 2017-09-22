@@ -40,12 +40,12 @@ class RespuestaController extends Controller
      */
     public function store(Request $request)
     {
-        $respuesta = Respuesta::create([
+        Respuesta::create([
             'eva_ide' => $request->eva_ide,
             'alt_ide' => $request->alt_ide
         ]);
 
-        return response()->json($respuesta);    
+        return response()->json(['mensaje' => 'Respuesta insertada'],201);
     }
 
     /**
@@ -54,9 +54,15 @@ class RespuestaController extends Controller
      * @param  \App\Respuesta  $respuesta
      * @return \Illuminate\Http\Response
      */
-    public function show(Respuesta $respuesta)
+    public function show($id)
     {
-        return response()->json(Respuesta::findOrFail($id));
+        $respuesta = Respuesta::find($id);
+
+        if(!$respuesta)
+        {
+            return response()->json(['mensaje' => 'No se encuentra esta respuesta', 'codigo' => 404],404);
+        }
+        return response()->json(['datos' => $respuesta],200);
     }
 
     /**
@@ -79,11 +85,17 @@ class RespuestaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $respuesta = Respuesta::findOrFail($id);
-        $respuesta->eva_ide = $request->eva_ide;
-        $respuesta->alt_ide = $request->alt_ide;
-        $respuesta->save();
-        return response()->json($respuesta);
+        $respuesta = Respuesta::find($id);
+        if(!$respuesta)
+        {
+            return response()->json(['mensaje' => 'No se encuentra esta respuesta', 'codigo' => 404],404);
+        }
+        else {
+            $respuesta->eva_ide = $request->eva_ide;
+            $respuesta->alt_ide = $request->alt_ide;
+            $respuesta->save();
+            return response()->json(['mensaje' => 'Respuesta editada'], 200);
+        }
     }
 
     /**
@@ -94,7 +106,14 @@ class RespuestaController extends Controller
      */
     public function destroy($id)
     {
-        $respuesta = Respuesta::findOrFail($id);
-        $respuesta->delete();
+        $respuesta = Respuesta::find($id);
+        if(!$respuesta)
+        {
+            return response()->json(['mensaje' => 'No se encuentra esta respuesta', 'codigo' => 404],404);
+        }
+        else{
+            $respuesta->delete();
+            return response()->json(['mensaje' => 'Respuesta eliminada'],200);
+        }
     }
 }
