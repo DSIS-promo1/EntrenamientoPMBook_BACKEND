@@ -8,6 +8,8 @@ class Respuesta extends Model
 {
     protected $table = 'Respuestas';
 
+    public $timestamps = false;
+    
     /**
      * The attributes that are mass assignable.
      *
