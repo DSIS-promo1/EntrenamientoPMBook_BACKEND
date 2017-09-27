@@ -2,7 +2,9 @@
 
 ### Instrucciones
 Crear la base de datos, "mydb"
+
 Configurar .env
+
 Ejecutar los siguientes comandos:
 
 ```
