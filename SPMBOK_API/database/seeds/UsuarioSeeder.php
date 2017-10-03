@@ -21,13 +21,14 @@ class UsuarioSeeder extends Seeder
                 'usu_sex' => 'F',
                 'usu_fna' => date('Y-m-d'),
                 'email' => 'nom_'.'ape'.$i.'@gmail.com',
-                'password' => 'pass_'.$i,
+                'password' => Hash::make("12345678"),
                 'usu_cel' => $i*1234578,
                 'usu_fre' => date('Y-m-d'),
                 'usu_tip' => 'U',
                 'usu_fto' => 'foto_'.$i,
                 'usu_est' => 'A',
-                'remember_token' => "token_".$i
+                'remember_token' => "token_".$i,
+                'is_verified' => 1
             ]);
 
         }
